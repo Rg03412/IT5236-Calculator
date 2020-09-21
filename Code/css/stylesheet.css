@@ -1,0 +1,17 @@
+.box {  
+  padding-right: 15%;
+  padding-left: 15%;
+}
+.center {
+  margin: auto;
+  width: 50%;
+  border: 3px solid black;
+  padding: 10px;
+  background-color: white;
+}
+button{
+  background-color: white;
+}
+body{
+  background-color:rgba(233, 227, 227, 0.904);
+}
