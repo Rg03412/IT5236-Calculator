@@ -11,6 +11,7 @@
 	<meta charset="utf-8">
 	<title>Calculator</title>
 	<meta name="author" content="Ryan Gniewkowski">
+	<script src="js/JavaScript.js"></script>
 	<link rel="stylesheet" href="css/normalize.css">
 	<link rel="stylesheet" href="css/skeleton.css">
 	<link rel="stylesheet" href="css/stylesheet.css">
@@ -20,19 +21,20 @@
 
 	<div class="box">
 		<div class="row ">
-			<div class="center"><h2 id="answerBlock"></h2></div>
+			<div class="center"><h2 id="answerBlock">0</h2></div>
 		</div>
-		<div class="row">
+		<!-- will add back when i need more buttons for future use
+			<div class="row"> 
 			<div class="three columns"><button>History</button></div>
 			<div class="three columns"><button>uwu</button></div>
 			<div class="three columns"><button>uwu</button></div>
 			<div class="three columns"><button onclick="BackButton(id)" id="Back">Back</button></div>
-		</div>
+		</div> -->
 		<div class="row">
 			<div class="three columns"><button onclick="ClearButton()" id="C">C</button></div>
-			<div class="three columns"><button onclick="Logpress(id)" id="()">()</button></div>
-			<div class="three columns"><button onclick="Logpress(id)" id="^">^</button></div>
+			<div class="three columns"><button onclick="BasicMathSumbol(id)" id="^">^</button></div>
 			<div class="three columns"><button onclick="BasicMathSumbol(id)" id="/">/</button></div>
+			<div class="three columns"><button onclick="BackButton(id)" id="Back">&#8592;</button></div>
 		</div>
 		<div class="row">
 			<div class="three columns"><button onclick="BasicNumber(id)" id="7">7</button></div>
@@ -53,144 +55,11 @@
 			<div class="three columns"><button onclick="BasicMathSumbol(id)" id="+">+</button></div>
 		  </div>
 		  <div class="row">
-			<div class="three columns"><button onclick="Logpress(id)" id="-">+/-</button></div>
+			<div class="three columns"><button onclick="UnaddedButton(id)" id="-">+/-</button></div>
 			<div class="three columns"><button onclick="BasicNumber(id)" id="0">0</button></div>
-			<div class="three columns"><button onclick="Logpress(id)" id=".">.</button></div>
+			<div class="three columns"><button onclick="UnaddedButton(id)" id=".">.</button></div>
 			<div class="three columns"><button onclick="CalculateFinalAnswer()" id="=">=</button></div>
 	  	</div>
 	</div>
-		<script>
-			var mathLog = [];
-			var tempNumber = [];
-			var oporation = "addition";
-			var tempDisplay = "";
-
-
-			function BackButton(){
-				if(tempNumber.length!==0){
-					console.log(tempNumber)
-					tempNumber.pop();
-					console.log(tempNumber)
-				}else if(mathLog.length!==0){
-					console.log(mathLog)
-					mathLog.pop()
-					console.log(mathLog)
-				}else{
-					console.log("nothing left")
-				}
-				document.getElementById("answerBlock").innerHTML = UpdateBox();
-			}
-
-
-			function BasicNumber(id){
-				tempNumber.push(id);
-				
-				tempDisplay = tempDisplay + id;
-				console.log(tempDisplay,id)
-				document.getElementById("answerBlock").innerHTML = UpdateBox();
-
-			}
-
-			function ClearButton(){
-				mathLog = [];
-				tempNumber = [];
-				oporation = "addition";
-				tempDisplay = "";
-				document.getElementById("answerBlock").innerHTML = "";
-			}
-
-
-			function UpdateBox(){
-
-					if (mathLog.length !=0){
-						if(tempDisplay!=""){
-							x = mathLog.toString() + tempDisplay;
-							console.log(x)
-						return x.replaceAll(',','')
-					} else{
-						return mathLog.toString().replaceAll(',','')
-					}
-					}
-					else if(tempDisplay!=""){
-						return tempDisplay
-					}
-			}
-
-
-			function BasicMathSumbol(id){
-				i = 0;
-				longNumber = "";
-				for (;tempNumber[i];) {
-					longNumber += tempNumber[i] ;
-					i++;
-				}
-				tempNumber = [];
-				tempDisplay = "";
-				mathLog.push(parseInt(longNumber, 10))
-				mathLog.push(id)
-				console.log(mathLog)
-				document.getElementById("answerBlock").innerHTML = UpdateBox();
-			}
-
-
-			function CalculateFinalAnswer(){
-				finalAnswer = 0;
-				i = 0;
-				longNumber = "";
-				for (;tempNumber[i];) {
-					longNumber += tempNumber[i] ;
-					i++;
-				}
-				tempNumber = [];
-				mathLog.push(parseInt(longNumber, 10))
-				console.log(mathLog)
-
-
-				for (i = 0; i < mathLog.length; i++) {
-					// console.log(typeof mathLog[i])
-					
-					if(typeof mathLog[i]=== "number"){
-						console.log(oporation)
-						if(oporation == "addition"){
-							finalAnswer += mathLog[i]
-						}
-						else if(oporation == "subtration"){
-							console.log(finalAnswer, " - ", mathLog[i])
-							finalAnswer = finalAnswer - mathLog[i]
-						}
-						else if(oporation == "division"){
-							finalAnswer = finalAnswer/mathLog[i]
-						}
-						else if(oporation == "multiplication"){
-							console.log(finalAnswer)
-							finalAnswer = finalAnswer * mathLog[i]
-						}
-					}else if(typeof mathLog[i]=== "string"){
-						if(mathLog[i]== "+"){
-							oporation = "addition";
-						}
-						else if(mathLog[i]== "-"){
-							console.log("test1")
-							oporation = "subtration";
-						}
-						else if(mathLog[i]== "/"){
-							oporation = "division";
-						}
-						else if(mathLog[i]== "*"){
-							oporation = "multiplication";
-						}
-					}
-				}
-				console.log(finalAnswer)
-				document.getElementById("answerBlock").innerHTML = finalAnswer;
-				finalAnswer = 0;
-				oporation = "addition";
-				tempDisplay = "";
-				mathLog = [];
-			}
-
-
-		</script>
-
 </body>
 </html>

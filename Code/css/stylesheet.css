@@ -8,6 +8,7 @@
   border: 3px solid black;
   padding: 10px;
   background-color: white;
+  min-height: 75px;
 }
 button{
   background-color: white;
